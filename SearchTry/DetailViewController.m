@@ -193,6 +193,12 @@
 
 -( void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
+    NSInteger height = [[self.htmlContent stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"$('h1:nth-child(%lu)').offset().top;", buttonIndex]] intValue];
+    NSLog(@"button index: %lu",buttonIndex);
+    NSLog(@"%lu",height);
+    
+    //NSString *javascript = [NSString stringWithFormat:@"window.location = 'h1:nth-child(%lu)';", buttonIndex];
+    //[self.htmlContent stringByEvaluatingJavaScriptFromString:javascript];
 }
 
 @end

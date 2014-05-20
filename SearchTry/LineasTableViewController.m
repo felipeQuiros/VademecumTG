@@ -54,30 +54,17 @@
     
     
     self.colors = [[NSMutableArray alloc] initWithObjects:
-                     [UIColor colorWithRed:1 green:0 blue:0 alpha:1],
-                     [UIColor colorWithRed:1 green:0.25 blue:0 alpha:1],
-                     [UIColor colorWithRed:1 green:0.5 blue:0 alpha:1],
-                     [UIColor colorWithRed:1 green:0.75 blue:0 alpha:1],
-                     [UIColor colorWithRed:1 green:1 blue:0 alpha:1],
-                     [UIColor colorWithRed:0.75 green:1 blue:0 alpha:1],
-                     [UIColor colorWithRed:0.5 green:1 blue:0 alpha:1],
-                     [UIColor colorWithRed:0.25 green:1 blue:0 alpha:1],
-                     [UIColor colorWithRed:0 green:1 blue:0 alpha:1],
-                     [UIColor colorWithRed:0 green:1 blue:0.25 alpha:1],
-                     [UIColor colorWithRed:0 green:1 blue:0.5 alpha:1],
-                     [UIColor colorWithRed:0 green:1 blue:0.75 alpha:1],
-                     [UIColor colorWithRed:0 green:1 blue:1 alpha:1],
-                     [UIColor colorWithRed:0 green:0.75 blue:1 alpha:1],
-                     [UIColor colorWithRed:0 green:0.5 blue:1 alpha:1],
-                     [UIColor colorWithRed:0 green:0.25 blue:1 alpha:1],
-                     [UIColor colorWithRed:0 green:0 blue:1 alpha:1],
-                     [UIColor colorWithRed:0.25 green:0 blue:1 alpha:1],
-                     [UIColor colorWithRed:0.5 green:0 blue:1 alpha:1],
-                     [UIColor colorWithRed:0.75 green:0 blue:1 alpha:1],
-                     [UIColor colorWithRed:1 green:0 blue:1 alpha:1],
-                     [UIColor colorWithRed:1 green:0 blue:0.75 alpha:1],
-                     [UIColor colorWithRed:1 green:0 blue:0.5 alpha:1],
-                     [UIColor colorWithRed:1 green:0 blue:0.25 alpha:1],nil];
+                     [UIColor colorWithRed:0.9 green:0.51 blue:0.51 alpha:1],
+                     [UIColor colorWithRed:0.45 green:0.61 blue:0.84 alpha:1],
+                     [UIColor colorWithRed:0.0 green:0.73 blue:0.69 alpha:1],
+                     [UIColor colorWithRed:0.62 green:0.84 blue:0.65 alpha:1],
+                     [UIColor colorWithRed:0.70 green:0.70 blue:0.70 alpha:1],
+                     [UIColor colorWithRed:0.77 green:0.77 blue:0.77 alpha:1],
+                     [UIColor colorWithRed:0.67 green:0.76 blue:0.89 alpha:1],
+                     [UIColor colorWithRed:0.58 green:0.86 blue:0.92 alpha:1],
+                     [UIColor colorWithRed:0.76 green:0.64 blue:0.82 alpha:1],
+                     [UIColor colorWithRed:0.95 green:0.77 blue:0.64 alpha:1],
+                     [UIColor colorWithRed:1 green:0.82 blue:0.41 alpha:1],nil];
     
     for(int i=0 ; i<11 ; i++){
         [self.masterArray addObject:[[NSMutableArray alloc] init]];
@@ -116,13 +103,20 @@
     return cell;
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
     
    
     if([[segue identifier] isEqualToString:@"ShowLine"])
@@ -138,8 +132,6 @@
         //Aquí le pongo el nombre a la siguiente sección
         [[segue destinationViewController] setDetailLabelContents: lineName];
         [[segue destinationViewController] setObjects: arr];
-        
-        //y aquí probablemente debería filtrar lo medicamentos de la Línea e incluirlos en la siguiente sección
     }
 }
 

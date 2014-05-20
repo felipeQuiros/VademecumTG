@@ -1,0 +1,17 @@
+#&Otro Medicamento
+
+#@<h1>Composición</h1>
+<p>Cada Tableta cubierta de AZITROTEG® contiene 500 mg de Azitromicina dihidrato (4,24 g) equivalente a Azitromicina anhidra.</p>
+<img src="MedSources/medImgs/Azitroteg.jpg" />
+<h1>Presentaciones</h1>
+<p>BETAMETATEG® 7 mg/1 ml, Suspensión inyectable, caja por 1 ampolla.</p>
+<h1>Descripción</h1>
+<p>AZITROTEG® pertenece al grupo de los azálidos, una subclase de antibióticos macrólidos, para administración oral; se encuentra disponible en Tabletas cubiertas.</p>
+<h1>Descripción</h1>
+<p>AZITROTEG® pertenece al grupo de los azálidos, una subclase de antibióticos macrólidos, para administración oral; se encuentra disponible en Tabletas cubiertas.</p>
+
+#=Antiinfecciosos Sistémicos Generales
+
+#=Sistema Alimentario y Metabolismo
+
+#$Otro Medicamento.clorato de otromicina

@@ -1,0 +1,12 @@
+#&Medicamento 2
+
+#@<h1>titulo 1</h1>
+<p>contenido para el  título 1</p>
+<h1>titulo 2</h1>
+<p>contenido para el  título 2</p>
+
+#=Sistema Cardiovascular
+
+#=Parasitología
+
+#$Medicamento 2.Pediátrica.dermatológica

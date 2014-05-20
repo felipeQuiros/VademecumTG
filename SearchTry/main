@@ -1,0 +1,49 @@
+//
+//  main.m
+//  SearchTry
+//
+//  Created by SMART MEDIA on 14/03/14.
+//  Copyright (c) 2014 SMART MEDIA. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import "AppDelegate.h"
+
+int main(int argc, char * argv[])
+{
+    @autoreleasepool {
+       /*
+        NSFileHandle *fin;
+        NSData *buffer;
+        
+        //open test File and read it
+        fin = [NSFileHandle fileHandleForReadingAtPath:@"MedSources/TestMed"];
+        
+        buffer = [fin readDataToEndOfFile];
+        
+        NSLog(@"MENSAJE: %@", @"tales y tales");
+        */
+        
+        /*NSFileManager *filemgr;
+        NSString *currentpath;
+        NSArray *filelist;
+        int count;
+        int i;
+        
+        filemgr = [NSFileManager defaultManager];
+        
+        filelist = [filemgr contentsOfDirectoryAtPath: @"/Desktop" error: nil];
+        
+        count = [filelist count];
+        
+        for (i = 0; i < count; i++)
+            NSLog (@"%@", [filelist objectAtIndex: i]);
+         
+         */
+        NSURL *url = @"/Users/smartmedia/Desktop/FelipeQuiros/TQ/_VTG/Git/TG_Vademecum/SearchTry_modification/SearchTry/MedSources";
+        
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}

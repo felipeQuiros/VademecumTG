@@ -15,6 +15,15 @@
 
 @implementation DetailViewController
 
+-(NSMutableArray *)titles
+{
+    if(!_titles){
+        _titles = [[NSMutableArray alloc] init];
+    }
+    
+    return _titles;
+}
+
 
 - (void)viewDidLoad
 {
@@ -108,8 +117,6 @@
         [self.LineColor setBackgroundColor:self.interfaceColor];
     }
     
-    
-    
     //organizarlo para ios webURLs
     imagePath = [imagePath stringByReplacingOccurrencesOfString:@"/" withString:@"//"];
     imagePath = [imagePath stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
@@ -117,6 +124,31 @@
     //obtengo el html entero del txt
     NSMutableString *HTMLData = [NSMutableString stringWithFormat:@"%@",self.htmlSource];
     
+    //genero el arreglo para titulos
+    //parto el html para que comience con los títulos cada casilla generada
+    NSArray *tmparr = [HTMLData componentsSeparatedByString:@"<h1>"];
+    
+    //NSLog(@"%@",tmparr[1]);
+    //NSLog(@"%@",[tmparr[1] substringToIndex: [tmparr[1] rangeOfString:@"<"].location]);
+    
+    for(int i=0 ; i<[tmparr count]; i++){
+        //agrego un string desde e lcomienzo de cada casilla hasta la primera vez que ocurre el caracter "<"
+        if([tmparr[i] length]>1){
+            [self.titles addObject:[tmparr[i] substringToIndex: [tmparr[i] rangeOfString:@"<"].location]];
+        }
+    }
+    
+    //creo el action sheet vacío
+    self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+    
+    //le agrego los botones
+    for(int i=0 ; i<[self.titles count] ; i++){
+        [self.actionSheet addButtonWithTitle: self.titles[i]];
+    }
+    //le agreego el botón cancelar :)
+    self.actionSheet.cancelButtonIndex = [self.actionSheet addButtonWithTitle:@"Cancel"];
+    self.actionSheet.title = @"Índice";
+
     //cargo los estilos
     NSString *pathDeEstilos = @"MedSources/style";
     //encuentra la ruta de los estilos
@@ -155,9 +187,7 @@
 
 - (IBAction)actionSheetButton:(id)sender {
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Contenido" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Atrás" otherButtonTitles:@"botón 1", @"botón 2", nil];
-    
-    [actionSheet showInView: [UIApplication sharedApplication].keyWindow];
+    [self.actionSheet showInView: [UIApplication sharedApplication].keyWindow];
     //[actionSheet showInView:[UIApplication sharedApplication].keyWindow];
 }
 

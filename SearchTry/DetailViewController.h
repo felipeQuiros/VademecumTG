@@ -19,6 +19,8 @@
 @property (strong, nonatomic) IBOutlet UIWebView *htmlContent;
 @property (strong, nonatomic) NSString *htmlSource;
 @property (strong, nonatomic) NSString *linea;//linea a la que pertenece
+@property (strong, nonatomic) NSMutableArray *titles;
+@property (strong, nonatomic) UIActionSheet *actionSheet;
 
 - (IBAction)actionSheetButton:(id)sender;
 

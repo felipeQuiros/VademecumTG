@@ -99,7 +99,7 @@
     //dar color a la linea debajo del título
     if(self.interfaceColor){
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : self.interfaceColor}];
-        //[self.LineColor setBackgroundColor:self.interfaceColor];
+        [self.lineCOlor setBackgroundColor:self.interfaceColor];
     }
     
     

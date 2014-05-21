@@ -24,15 +24,29 @@
     return _titles;
 }
 
+-(NSMutableArray *)scrolls
+{
+    if(!_scrolls){
+        _scrolls = [[NSMutableArray alloc] init];
+    }
+    
+    return _scrolls;
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.htmlContent.delegate = self;
+    
     //set the label text
     
     self.title = self.detailLabelContents;
     
+    /*
+    [self.htmlContent loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"html/index" ofType:@"html" inDirectory:@""] isDirectory:NO]]];
+    */
     //setear el origen del path
     NSString *imagePath = [[NSBundle mainBundle] resourcePath];
     
@@ -175,14 +189,28 @@
       ]];
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    
+    NSString *arrayLenght = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName(\"h1\").length;"];
+    
+    for(int i=0 ; i<[arrayLenght intValue] ; i++){
+        NSString *jsQery = [NSString stringWithFormat:@"document.getElementsByTagName(\"h1\")[%i].getBoundingClientRect().top;",i];
+        NSString *value = [webView stringByEvaluatingJavaScriptFromString:jsQery];
+        [self.scrolls addObject:[NSNumber numberWithInt:[value intValue]]];
+    }
+    
+    //NSString *windowWidth = [webView stringByEvaluatingJavaScriptFromString:@"window.innerWidth;"];
+    //[webView stringByEvaluatingJavaScriptFromString:@"window.scrollTo(0,200);"];
+
+    //NSLog(@"Window Inner Width = %@ \n Window Inner Height= %@ \n", windowWidth, windowHeight);
+    //NSLog(@"arrayLenght value = %@", arrayLenght);
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void) viewWillDisappear:(BOOL)animated{
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
 }
 
 - (IBAction)actionSheetButton:(id)sender {
@@ -193,12 +221,10 @@
 
 -( void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    NSInteger height = [[self.htmlContent stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"$('h1:nth-child(%lu)').offset().top;", buttonIndex]] intValue];
-    NSLog(@"button index: %lu",buttonIndex);
-    NSLog(@"%lu",height);
+    NSString *jsQery = [NSString stringWithFormat:@"window.scrollTo(0,%i);", [self.scrolls[buttonIndex] intValue]];
+    [self.htmlContent stringByEvaluatingJavaScriptFromString: jsQery];
+    NSLog(@"scroll value = %i", [self.scrolls[buttonIndex] intValue]);
     
-    //NSString *javascript = [NSString stringWithFormat:@"window.location = 'h1:nth-child(%lu)';", buttonIndex];
-    //[self.htmlContent stringByEvaluatingJavaScriptFromString:javascript];
 }
 
 @end

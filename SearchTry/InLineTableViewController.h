@@ -13,5 +13,6 @@
 @property (strong, nonatomic) NSString *detailLabelContents;
 @property (nonatomic, strong) NSMutableArray *objects;
 @property (strong, nonatomic) UIColor *interfaceColor;
+@property (strong, nonatomic) IBOutlet UIImageView *lineCOlor;
 
 @end

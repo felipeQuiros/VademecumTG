@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailViewController : UIViewController <UIActionSheetDelegate>
+@interface DetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate>
 
 @property (strong, nonatomic) NSString *detailLabelContents;
 @property (strong, nonatomic) IBOutlet UITextView *contenido;
@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSString *linea;//linea a la que pertenece
 @property (strong, nonatomic) NSMutableArray *titles;
 @property (strong, nonatomic) UIActionSheet *actionSheet;
+@property (strong, nonatomic) NSMutableArray *scrolls;
 
 - (IBAction)actionSheetButton:(id)sender;
 

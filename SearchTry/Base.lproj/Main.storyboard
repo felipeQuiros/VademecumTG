@@ -198,9 +198,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="k7M-B9-m3c">
+                            <rect key="frame" x="0.0" y="64" width="320" height="4"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Med" textLabel="B9R-xB-Skj" style="IBUITableViewCellStyleDefault" id="eTw-kH-d2S">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="90" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eTw-kH-d2S" id="07g-6B-Gua">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -228,6 +232,9 @@
                     <navigationItem key="navigationItem" title="línea específica" id="NIt-vi-xt4">
                         <barButtonItem key="backBarButtonItem" title=" " id="6pW-Yy-cGX"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="lineCOlor" destination="k7M-B9-m3c" id="ljG-7W-01S"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f1B-vg-MA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -259,6 +266,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="kW7-qq-p1N"/>
+        <segue reference="TiE-d4-xpx"/>
     </inferredMetricsTieBreakers>
 </document>

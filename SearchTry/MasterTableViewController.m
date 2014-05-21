@@ -100,7 +100,6 @@
     //crear la celda que no estaba cerada
     if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     

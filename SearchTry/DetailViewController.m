@@ -15,7 +15,7 @@
 
 @implementation DetailViewController
 
--(NSMutableArray *)titles
+-(NSMutableArray *)titles//inicialización del arreglo
 {
     if(!_titles){
         _titles = [[NSMutableArray alloc] init];
@@ -24,7 +24,7 @@
     return _titles;
 }
 
--(NSMutableArray *)scrolls
+-(NSMutableArray *)scrolls//inicialización del arreglo
 {
     if(!_scrolls){
         _scrolls = [[NSMutableArray alloc] init];
@@ -34,25 +34,21 @@
 }
 
 
-- (void)viewDidLoad
+- (void)viewDidLoad//primera carga de la interfaz
 {
-    [super viewDidLoad];
+    [super viewDidLoad];//didload del parent
     
+    
+    //esto no tengo muy claro para qué es pero al parecer es para acceder mediante la variable, a el control del webview
     self.htmlContent.delegate = self;
     
-    //set the label text
-    
+    //set el título de la interfaz (nombre del medicamento)
     self.title = self.detailLabelContents;
     
-    /*
-    [self.htmlContent loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"html/index" ofType:@"html" inDirectory:@""] isDirectory:NO]]];
-    */
-    //setear el origen del path
-    NSString *imagePath = [[NSBundle mainBundle] resourcePath];
-    
+    //guardo y obtengo el nombre de la línea a la cual pertenece el medicamento en una variable local
     NSString *linea = self.linea;
     
-    //esto es un directorio que le dice a la interfaz cómo acomodar sus colores
+    //esto es un directorio que le dice a la interfaz cómo inicializar los colores dependiendo de su línea
     void (^selectedCase)() = @{
                                @"Antiinfecciosos Sistémicos Generales" : ^{
                                    //rosadito
@@ -120,18 +116,23 @@
                                    self.interfaceColor = [UIColor colorWithRed:1 green:0.82 blue:0.41 alpha:1];
                                    self.hexaColor = @"h1{color:#FFD36C;}";
                                },
-                               }[self.linea];
+                               }[self.linea];//esta es la variable de la que depende ese diccionario
     
-    if(linea != nil)
-        selectedCase();
+    if(linea != nil)//si tiene un valor
+        selectedCase();//llamo el diccionario para que instancie los colores que usaré
     
     //dar color a la linea debajo del título
     if(self.interfaceColor){
+        //setear el color del título
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : self.interfaceColor}];
+        //setear el color de la línea de abajo del título
         [self.LineColor setBackgroundColor:self.interfaceColor];
     }
     
-    //organizarlo para ios webURLs
+    //setear el origen del path
+    NSString *imagePath = [[NSBundle mainBundle] resourcePath];
+    
+    //organizar dicho path para ios webURLs
     imagePath = [imagePath stringByReplacingOccurrencesOfString:@"/" withString:@"//"];
     imagePath = [imagePath stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
@@ -146,7 +147,7 @@
     //NSLog(@"%@",[tmparr[1] substringToIndex: [tmparr[1] rangeOfString:@"<"].location]);
     
     for(int i=0 ; i<[tmparr count]; i++){
-        //agrego un string desde e lcomienzo de cada casilla hasta la primera vez que ocurre el caracter "<"
+        //agrego un string desde el comienzo de cada casilla hasta la primera vez que ocurre el caracter "<"
         if([tmparr[i] length]>1){
             [self.titles addObject:[tmparr[i] substringToIndex: [tmparr[i] rangeOfString:@"<"].location]];
         }
@@ -190,20 +191,22 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    /*
+     ES IMPORTANTE HACER ESTOS CÁLCULOS EN EL DIDFINISHLOAD PARA QUE TODOS LOS ELEMENTOS DEL HTML EXISTAN Y ENTREGUEN DATOS VERÍDICOS
+     */
     
+    //se obtiene la longitud del arreglo
     NSString *arrayLenght = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName(\"h1\").length;"];
     
+    //se usa la longitud del arreglo para hacer un for
     for(int i=0 ; i<[arrayLenght intValue] ; i++){
+        //el for usa el index para obtener cada uno de los títulos y su respectivo offset con respecto al top del webview
         NSString *jsQery = [NSString stringWithFormat:@"document.getElementsByTagName(\"h1\")[%i].getBoundingClientRect().top;",i];
+        //mando el quer de javascript
         NSString *value = [webView stringByEvaluatingJavaScriptFromString:jsQery];
+        //se guarda el numero en un arreglo para usarlo después
         [self.scrolls addObject:[NSNumber numberWithInt:[value intValue]]];
     }
-    
-    //NSString *windowWidth = [webView stringByEvaluatingJavaScriptFromString:@"window.innerWidth;"];
-    //[webView stringByEvaluatingJavaScriptFromString:@"window.scrollTo(0,200);"];
-
-    //NSLog(@"Window Inner Width = %@ \n Window Inner Height= %@ \n", windowWidth, windowHeight);
-    //NSLog(@"arrayLenght value = %@", arrayLenght);
 }
 
 
@@ -220,10 +223,12 @@
 }
 
 -( void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
+    //hago un string que contiene el js que voy a hacer, este tiene como objetivo, introducir el valor correcto del arreglo dentro de la función
+    //JS que va a scrollear el uiwebview
     NSString *jsQery = [NSString stringWithFormat:@"window.scrollTo(0,%i);", [self.scrolls[buttonIndex] intValue]];
+    //mando el JS
     [self.htmlContent stringByEvaluatingJavaScriptFromString: jsQery];
-    NSLog(@"scroll value = %i", [self.scrolls[buttonIndex] intValue]);
+    //NSLog(@"scroll value = %i", [self.scrolls[buttonIndex] intValue]);
     
 }
 
